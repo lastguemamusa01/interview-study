@@ -189,4 +189,19 @@ algorithm.
 values of n.
 10! = 3,628,800
 
+Memory Footprint Analysis
 
+Runtime analysis is not the only relevant metric for performance. A common request from inter- viewers is to analyze how much memory a program uses. This is sometimes referred to as the memory footprint of the application. Memory use is sometimes as important as running time, par- ticularly in constrained environments such as embedded systems.
+
+In some cases, you will be asked about the memory usage of an algorithm. For this, the approach is to express the amount of memory required in terms of n, the size of the input, analogous to the preceding discussion of Big-O runtime analysis. The difference is that instead of determining how many operations are required for each item of input, you determine the amount of storage required for each item
+
+
+Other times, you may be asked about the memory footprint of an implementation. This is usually an exercise in estimation, especially for languages such as Java and C# that run in a virtual machine. Interviewers don’t expect you to know to-the-byte exactly how much memory is used, but they like to see that you understand how the underlying data structures might be implemented.
+
+SUMMARY
+
+How you solve programming problems during your interviews can determine whether you get a job offer, so you need to answer them as correctly and completely as you can. The problems usually get progressively harder as the day progresses, so don’t be surprised if you need an occasional hint from the interviewer. You normally code in a mainstream programming language, but the choice of lan- guage is ultimately dictated by the requirements of the job for which you apply, so be familiar with the right languages.
+
+Interact with your interviewers as much as possible as you attempt each problem. Let them know what you’re thinking at each point in your analysis of the problem and your attempts at coding an answer. Start by making sure you understand the problem, and then try some examples to reinforce that understanding. Choose the algorithm and make sure it works for those examples. Remember to test for special cases. If you’re stuck, try more examples or choose a different algorithm. Keep obscure or advanced language features in mind when looking for alternative answers.
+
+If asked to comment on the performance of a solution, a Big-O runtime analysis is usually sufficient. Algorithms that run in constant, logarithmic, linear, or quasilinear time are preferred. You should also be prepared to comment on the memory footprint of an algorithm.

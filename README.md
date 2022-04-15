@@ -205,3 +205,203 @@ How you solve programming problems during your interviews can determine whether 
 Interact with your interviewers as much as possible as you attempt each problem. Let them know what you’re thinking at each point in your analysis of the problem and your attempts at coding an answer. Start by making sure you understand the problem, and then try some examples to reinforce that understanding. Choose the algorithm and make sure it works for those examples. Remember to test for special cases. If you’re stuck, try more examples or choose a different algorithm. Keep obscure or advanced language features in mind when looking for alternative answers.
 
 If asked to comment on the performance of a solution, a Big-O runtime analysis is usually sufficient. Algorithms that run in constant, logarithmic, linear, or quasilinear time are preferred. You should also be prepared to comment on the memory footprint of an algorithm.
+
+
+## Google Resume book
+
+Passion. Creativity. Initiative. Intelligence. And a “getting things done” attitude. 
+
+You need to be able to answer questions about your prior work with illustrative examples. You need to understand the company so that you can tell your interviewer why you want to work there and what you’ll add. And, finally, you need to be able to ask interesting questions to your interviewer that demonstrate your research and interest. 
+
+Practice Your Pitch
+
+* For each job or position, practice stating a short blurb explaining what your role was and what you accomplished. Practice two blurbs: one that would be understandable from those in your field, and one that’s understandable for nonspecialists. Stay light on the details and let the interview probe as necessary.
+
+* Pay special attention to the pitches for your most recent role, as they’re the most relevant. You could even consider recording this pitch and playing it back to yourself—do you mumble during cer- tain parts? Friends can also be useful here. Where do they think you are weakest and strongest? 
+behavior interview
+
+prepare preparation grid.
+
+put keyword
+
+points :  challenging, what ou learned, influencing someone, conflict and mistake
+
+![image](https://user-images.githubusercontent.com/25869911/163633510-c1c5eb97-0739-4ba2-a38b-007fbb26f7f4.png)
+
+review your resume : 
+
+The day before your interview, pick up your résumé and explain each bullet out loud, just as you would if your interviewer asks, “What did you mean by this line?” Make sure you can explain the “what, how, and why.” 
+
+
+Do Your Homework
+
+Recruiting is expensive, and companies want to know that you’re excited about the job. They hate having a candidate reject their offer almost as much as candidates hate getting rejected. Moreover, enthusiastic candidates are more likely to work hard at a job and stay at the company. Companies look for enthusiasm, and researching the company, position, and people is one way to prove that.
+
+
+#### the programming interview
+
+15 minutes - discussion, which usually includes some questions about your résumé and/or offers you a chance to ask the interviewer questions.
+45 minutes - main coding interview
+
+Google - bit manipulation and scalability like desing a web crawler
+
+amazon - OO design questions, scalability questions .
+
+microsoft - emphasize testing and design skills more in developers than other companies do
+
+apple - Make sure you understand Apple’s products, especially those of the team you are interviewing with.  What would you improve about the product? Remember that Apple has a lot of smart people who haven’t yet done what you’re suggesting. Think about why they haven’t.
+
+quality matters more than quantity 
+
+* try to solve the problem on your own.
+* write the code for the algorithm on paper
+* test your code - manual
+* type your code into a computer exactly as is - rerun what you written 
+* start a list of all the mistakes you made, and analyze what types of mistakes you make the most ofter
+
+
+Data structures
+
+* Linked Lists, binary trees, tries, stacks, queues, vectors/arraylists, hash tables
+
+Algorithms
+
+* BFS, DFS, binary search, merge sort, quick sort, tree insert/find/etc
+
+concepts
+
+* bit manipulation, singleton desing pattern, factory design pattern, memory(stack vs heap), recursion, Big-o TIme
+
+For each of the topics, make sure you understand how to implement/use them, and (where applicable) the space and time complexity.
+
+We must often make a trade-off between time and space, and sometimes, we do sacrifice time efficiency to reduce memory usage.
+
+
+
+1. Ask your interviewer questions to resolve ambiguity. 
+
+* What are the data types? How much data is there? What assumptions do you need to solve the problem? Who is the user?
+
+2. Design an algorithm. make example and see the pattern or general solution.
+
+* What are the space and time complexities?
+* What happens if there is a lot of data?
+* Does your design cause other issues? (i.e., if you’re creating
+a modified version of a binary search tree, did your design
+impact the time for insert/find/delete?)
+* If there are other issues, did you make the right trade-offs?
+* If they gave you specific data (e.g., mentioned that the data is ages, or in sorted order), have you leveraged that informa- tion? There’s probably a reason that you’re given it.
+
+
+3. Write pseudo-code first, but make sure to tell your interviewer that you’re writing pseudo-code! Otherwise, he/she may think that you’re never planning to write “real” code, and many interviewers will hold that against you.
+
+* Writing pseudo-code first can help you outline your thoughts clearly and reduce the number of mistakes you commit.
+
+4. Write your code, not too slow and not too fast.
+
+* Use data structures generously. Where relevant, use a good data structure or define your own. For example, if you’re asked a problem involving finding the minimum age for a group of people, consider defining a data structure to represent a Person. This shows your interviewer that you care about good object-oriented design.
+
+5. Test your code and carefully fix any mistakes.  -> normal test case and edge cases
+
+* Extreme cases: 0, negative, null, maximums, etc.
+* User error: What happens if the user passes in null or a nega-
+tive value?
+* General cases: Test the normal case.
+
+6. tell big o of time and space
+
+Algorithm Questions: Five Ways to Create an Algorithm
+
+Keep in mind that the more problems you practice, the easier it will be to identify which approach to use.
+
+Also, remember that the five approaches can be “mixed and matched.” That is, once you’ve applied “Simplify and Generalize,” you may want to implement Pattern Matching next.
+
+Approach 1: Examplify
+
+* Examplify simply means to write out specific examples of the problem and see if you can figure out a general rule.
+
+Approach 2: Pattern Matching
+
+Pattern matching means to relate a problem to similar ones, and figure out if you can modify the solution to solve the new problem. This is one reason why practicing lots of problems is important; the more problems you do, the better you get.
+
+Approach 3: Simplify and Generalize
+
+In Simplify and Generalize, we change constraints (data type, size, etc.) to simplify the problem, and then try to solve the simplified problem. Once you have an algorithm for the “simplified” problem, you can generalize the problem back to its original form
+
+Approach 4: Base Case and Build
+
+Base Case and Build suggests that we solve the algorithm first for a base case (e.g., just one element). Then, try to solve it for elements one and two, assuming that you have the answer for element one. Then, try to solve it for elements one, two, and three, assuming that you have the answer to elements one and two.
+
+
+Approach 5: Data Structure Brainstorm
+
+The Data Structure Brainstorm approach admittedly feels somewhat hacky, but it often works. In this approach, we simply run through a list of data structures and try to apply each one. This approach works because many algorithms are quite straightforward once we find the right data structure.
+
+Object-oriented design (OOD) questions come in two flavors: OOD for a piece of software and OOD for a real-world object 
+
+* What are your goals? Imagine, for example, you are asked to design the classes for a generic deck of cards. What kind of cards? Are they standard playing cards, UNO cards, or some other kind? Just how “generic” is it supposed to be? 
+* What are the core objects? For example, if you’re doing the OOD for a restaurant, your core objects might be Restaurant, Patron, Party, Host, Server, Busser, Table, and so on. Each of these will become a class. 
+* How do the objects relate to each other? There is probably only one Restaurant, so this can be a singleton class. Restaurant has many Servers, one Host, many Bussers, many Tables, many Parties, and many Patrons. (Note: This is just an assumption; talk to your interviewer about this). Each Table has one Server and one Party. Look for and remove redundancies. For example, Restaurant may not need a list of Patrons, since it can get that from the list of Parties. 
+* How do the objects interact? Think about what the major actions that occur in the restaurant are. For example, a Party makes a Reservation with a Host. The Host sits the Party at a Table and assigns them a Server. Each of these actions should generally correspond to one or more meth- ods. By walking through these methods, you may discover that you missed some objects or that your design isn’t quite right. That’s OK—now is a great time to add them! 
+* Are there any tricky algorithms? In some cases, there may be an algorithm that impacts the design. For example, implementing findNextReservation(int partySize) might require some changes to how the reservations are refer- enced. Discuss these details with your interviewer. 
+
+
+Remember that object-oriented design questions require a lot of communication with your interviewer about how flexible your design should be and how to balance certain trade-offs. There is no “right” answer to an object-oriented design question.
+
+
+Scalability Questions
+
+When I interviewed at Google, I didn’t know a thing about large systems. Sure, I’d taken a distributed computing course where we studied election algorithms and whatnot, but that had nothing to do with what I was asked. Sort a million numbers? Design a web crawler? Yikes!
+
+I fumbled my way through the problem, and I realized I could do this just fine. Once I forgot that I had no idea what I was doing, I learned that I actually understood the primary com- plexities of large amounts of data and dealing with multiple systems at once.
+ 
+ All I needed to do was take things step by step. Imagine, for instance, that we’re designing a hypothetical system X for millions of items (users, files, etc.):
+ 
+1. How would you solve the problem for a small number of items? Develop an algorithm for this case, which is often pretty straightforward.
+
+2. What happens when you try to implement that algorithm with millions of items? It’s likely that you have run out of space on the computer. So, divide up the files across many computers.
+
+* How do you divide up data across many machines? That is, do the first 100 items appear on the same computer? Or all items with the same hash value mod 100?
+* About how many computers will you need? To esti- mate this, ask how big each item is, and take a guess at (or ask your interviewer) how much space a typical computer has.
+ 
+ 3. Now, fix the problems that occur when you are using many computers. Make sure to answer the following questions:
+
+* How does one machine know which machine it should
+access to look up data?
+* Can data get out of sync across computers? How do you
+handle that?
+* How can you minimize expensive reads across computers?
+
+
+testing interviews
+
+True testing questions usually fall into one of three categories:
+
+1. How would you test this real-world object?
+
+steps:
+* ask questions to understand what the object is
+* Who is using it, and what are they doing with it?
+* What are the unexpected uses?
+* Are there additional stress cases?
+* Can you fail gracefully?
+* What are the test cases?
+
+
+2. Explain how you would test this piece of computer software.
+
+steps:
+* Ask questions to resolve ambiguity.
+* Who is the user?
+* What is the feature set?
+* Are there unexpected uses or stress cases?
+* When there are failures, what can you do to fail gracefully?
+* What can be automated, and what must be manu- ally tested?
+
+3. Test a method (possibly one that you just wrote).
+
+steps:
+* As always, ask questions to resolve ambiguity
+* What do you need to test for? 
+* Write the expected cases.
+* Write the extreme cases. 

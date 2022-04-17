@@ -430,3 +430,31 @@ Here is the final output containing the averages of all subarrays of size 5:
 
 A brute-force algorithm will calculate the sum of every 5-element subarray of the given array and divide the sum by ‘5’ to find the average. This is what the algorithm will look like:
 
+```java
+import java.util.Arrays;
+
+public class AverageOfSubarrayOfSizeK  {
+    
+    
+    public static double[] findAverages(int k, int[] arr) {
+        double[] result = new double[arr.length-k+1];
+        
+        for(int i =0; i <= arr.length - k; i++) {
+            // find sum of next K elements
+            double sum = 0;
+            for(int j = i; j < i+k; j++) {
+                sum+= arr[j];
+            }
+            result[i] = sum/k; // calculate average
+        }
+        
+        return result;
+        
+    }
+    
+    public static void main(String args[]) {
+        double[] result = AverageOfSubarrayOfSizeK.findAverages(5, new int[] {1,3,26,-1,4,1,8,2});
+        System.out.println("Average of subarrays of size k: " + Arrays.toString(result));
+    }
+}
+```

@@ -458,3 +458,52 @@ public class AverageOfSubarrayOfSizeK  {
     }
 }
 ```
+Time complexity: Since for every element of the input array, we are calculating the sum of its next ‘K’ elements, the time complexity of the above algorithm will be O(N*K) where ‘N’ is the number of elements in the input array.
+
+input * K element -> 9 * 5 = 45
+
+The inefficiency is that for any two consecutive subarrays of size ‘5’, the overlapping part (which will contain four elements) will be evaluated twice. For example, take the above-mentioned input:
+
+![image](https://user-images.githubusercontent.com/25869911/163731416-c83364b1-c231-46fa-9c4d-1d281671621c.png)
+
+As you can see, there are four overlapping elements between the subarray (indexed from 0-4) and the subarray (indexed from 1-5). Can we somehow reuse the sum we have calculated for the overlapping elements?
+
+The efficient way to solve this problem would be to visualize each subarray as a sliding window of ‘5’ elements. This means that we will slide the window by one element when we move on to the next subarray. To reuse the sum from the previous subarray, we will subtract the element going out of the window and add the element now being included in the sliding window. This will save us from going through the whole subarray to find the sum and, as a result, the algorithm complexity will reduce to O(N).   
+
+big(O)= 9
+
+```java
+import java.util.*;
+
+public class AverageOfSubarrayOfSizeK {
+    
+    private static double[] getAverage(int K, int[] array) { 
+        double[] result = new double[array.length-K+1]; //9-5+1 = 5
+        
+        double windSum = 0;
+        int windStart = 0;
+        
+        for(int windEnd=0; windEnd < array.length; windEnd++) {  // 0 to 8 (size of 9)
+            
+            windSum += array[windEnd];
+            
+            if(windEnd >= K-1) { //5
+                result[windStart] = windSum/K; // get the average
+                windSum -= array[windStart]; // substract the lement going out
+                windStart++; // slide the window ahead
+            }
+            
+        }
+        
+        return result;
+        
+    }
+    
+    public static void main(String[] args) {
+        int[] input = new int[]{1, 3, 2, 6, -1, 4, 1, 8, 2};
+        double[] output = AverageOfSubarrayOfSizeK.getAverage(5,input);
+        System.out.println("average of subarray of size k: "+ Arrays.toString(output));
+        
+    }
+} 
+```

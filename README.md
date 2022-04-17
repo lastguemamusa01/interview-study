@@ -411,7 +411,7 @@ steps:
 
 In many problems dealing with an array (or a LinkedList), we are asked to find or calculate something among all the subarrays (or sublists) of a given size. For example, take a look at this problem:
 
-* Given an array, find the average of all subarrays of ‘K’ contiguous elements in it.
+### Given an array, find the average of all subarrays of ‘K’ contiguous elements in it.
 
 * Array: [1, 3, 2, 6, -1, 4, 1, 8, 2], K=5
 * 
@@ -507,3 +507,95 @@ public class AverageOfSubarrayOfSizeK {
     }
 } 
 ```
+
+### Maximum Sum Subarray of Size K (easy)
+
+Problem Statement
+
+* Given an array of positive numbers and a positive number ‘k,’ find the maximum sum of any contiguous subarray of size ‘k’.
+
+Example 1:
+
+```terminal
+Input: [2, 1, 5, 1, 3, 2], k=3 
+Output: 9
+Explanation: Subarray with maximum sum is [5, 1, 3].
+```
+Example 2:
+
+```terminal
+Input: [2, 3, 4, 1, 5], k=2 
+Output: 7
+Explanation: Subarray with maximum sum is [3, 4].
+```
+
+Solution
+
+A basic brute force solution will be to calculate the sum of all ‘k’ sized subarrays of the given array to find the subarray with the highest sum. We can start from every index of the given array and add the next ‘k’ elements to find the subarray’s sum. Following is the visual representation of this algorithm for Example-1:
+
+![image](https://user-images.githubusercontent.com/25869911/163733398-e3a9ed9c-d865-4ec8-a0e5-69d424268feb.png)
+
+brute force solution
+
+```java
+public static int findMaxSumSubArray(int k, int[] arr) {
+   int maxSum = 0, windowSum;
+   for (int i = 0; i <= arr.length - k; i++) {
+     windowSum = 0;
+     for (int j = i; j < i + k; j++) {
+       windowSum += arr[j];
+     }
+     maxSum = Math.max(maxSum, windowSum);
+   }
+
+   return maxSum;
+ }
+
+ public static void main(String[] args) {
+   System.out.println("Maximum sum of a subarray of size K: "
+       + MaxSumSubArrayOfSizeK.findMaxSumSubArray(3, new int[] { 2, 1, 5, 1, 3, 2 }));
+   System.out.println("Maximum sum of a subarray of size K: "
+       + MaxSumSubArrayOfSizeK.findMaxSumSubArray(2, new int[] { 2, 3, 4, 1, 5 }));
+ }
+ ```
+ The above algorithm’s time complexity will be O(N*K), where ‘N’ is the total number of elements in the given array.
+ 
+If you observe closely, you will realize that to calculate the sum of a contiguous subarray, we can utilize the sum of the previous subarray. For this, consider each subarray as a Sliding Window of size ‘k.’ To calculate the sum of the next subarray, we need to slide the window ahead by one element. So to slide the window forward and calculate the sum of the new position of the sliding window, we need to do two things:
+
+* Subtract the element going out of the sliding window, i.e., subtract the first element of the window.
+* Add the new element getting included in the sliding window, i.e., the element coming right after the end of the window.
+
+Solution
+```java
+class MaxSumSubArrayOfSizeK {
+  public static int findMaxSumSubArray(int k, int[] arr) {
+    int max = 0;
+    int sum = 0;
+    int result[] = new int[arr.length-k+1]; //4
+    int sumWindow = 0;
+    int startWindow = 0;
+
+    for(int endWindow = 0; endWindow < arr.length; endWindow++) {
+      sum += arr[endWindow];
+
+      if(endWindow >= k-1) {
+        max = Math.max(max,sum) // max = (max < sum) ? sum: max;
+        sum -= arr[startWindow]; 
+        startWindow++;
+      }
+    }
+
+    return max;
+  }
+}
+```
+
+
+
+Time Complexity
+
+The time complexity of the above algorithm will be O(N)
+
+Space Complexity
+
+The algorithm runs in constant space O(1)

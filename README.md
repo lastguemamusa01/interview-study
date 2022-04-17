@@ -626,3 +626,20 @@ Output: 3
 Explanation: Smallest subarrays with a sum greater than or equal to ‘8’ are [3, 4, 1] or [1, 1, 6].
 ```
 
+Solution
+
+This problem follows the Sliding Window pattern, and we can use a similar strategy as discussed in Maximum Sum Subarray of Size K. There is one difference though: in this problem, the sliding window size is not fixed. Here is how we will solve this problem:
+
+* First, we will add-up elements from the beginning of the array until their sum becomes greater than or equal to ‘S.’
+* These elements will constitute our sliding window. We are asked to find the smallest such window having a sum greater than or equal to ‘S.’ We will remember the length of this window as the smallest window so far.
+* After this, we will keep adding one element in the sliding window (i.e., slide the window ahead) in a stepwise fashion.
+* In each step, we will also try to shrink the window from the beginning. We will shrink the window until the window’s sum is smaller than ‘S’ again. This is needed as we intend to find the smallest window. This shrinking will also happen in multiple steps; in each step, we will do two things:
+  * Check if the current window length is the smallest so far, and if so, remember its length.
+  * Subtract the first element of the window from the running sum to shrink the sliding window.
+
+Here is the visual representation of this algorithm for the Example-1:
+
+![image](https://user-images.githubusercontent.com/25869911/163734481-cc908024-9024-405c-ada0-e71e3935e56a.png)
+
+![image](https://user-images.githubusercontent.com/25869911/163734489-a15e091e-2205-4ec7-83ed-03d62d82bfd3.png)
+

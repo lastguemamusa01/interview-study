@@ -643,3 +643,29 @@ Here is the visual representation of this algorithm for the Example-1:
 
 ![image](https://user-images.githubusercontent.com/25869911/163734489-a15e091e-2205-4ec7-83ed-03d62d82bfd3.png)
 
+```java
+public static int findMinSubArray(int S, int[] arr) {
+   int windowSum = 0, minLength = Integer.MAX_VALUE;
+   int windowStart = 0;
+   for (int windowEnd = 0; windowEnd < arr.length; windowEnd++) {
+     windowSum += arr[windowEnd]; // add the next element
+     // shrink the window as small as possible until the 'windowSum' is smaller than 'S'
+     while (windowSum >= S) {
+       minLength = Math.min(minLength, windowEnd - windowStart + 1);
+       windowSum -= arr[windowStart]; // subtract the element going out
+       windowStart++; // slide the window ahead
+     }
+   }
+
+   return minLength == Integer.MAX_VALUE ? 0 : minLength;
+ }
+```
+Time Complexity
+
+The time complexity of the above algorithm will be O(N). The outer for loop runs for all elements, and the inner while loop processes each element only once; therefore, the time complexity of the algorithm will be O(N+N), which is asymptotically equivalent to O(N)
+
+
+Space Complexity
+
+The algorithm runs in constant space O(1)
+

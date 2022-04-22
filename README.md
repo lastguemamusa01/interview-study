@@ -973,3 +973,5 @@ class LinkedListCycleLength {
 
 Time and Space Complexity: The above algorithm runs in O(N) time complexity and O(1) space complexity.
 
+### Pattern: Merge Intervals
+

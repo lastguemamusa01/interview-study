@@ -746,3 +746,86 @@ We can follow the Two Pointers approach. We will start with one pointer pointing
 * If the sum of the two numbers pointed by the two pointers is smaller than the target sum, this means that we need a pair with a larger sum. So, to try more pairs, we can increment the start-pointer.
 
 ![image](https://user-images.githubusercontent.com/25869911/164617047-9a815b96-a397-40d8-beab-9ec920f79e08.png)
+
+```java
+class PairWithTargetSum {
+
+  public static int[] search(int[] arr, int targetSum) {
+    
+    // left and right pointer
+    int leftPointer = 0, rightPointer = arr.length-1;
+    
+    while(leftPointer < rightPointer) {
+      int currentSum = arr[leftPointer]+arr[rightPointer];
+      // found the pair 
+      if(currentSum == targetSum) {
+        return new int[]{leftPointer, rightPointer}; 
+      }
+
+      if(currentSum < targetSum) {
+        leftPointer++;
+      } else {
+        rightPointer--;
+      }
+    }
+    
+    return new int[] {-1,-1};
+  }
+}
+```
+Time Complexity
+The time complexity of the above algorithm will be O(N), where ‘N’ is the total number of elements in the given array.
+
+Space Complexity
+
+The algorithm runs in constant space O(1)
+
+##### An Alternate approach
+
+Instead of using a two-pointer or a binary search approach, we can utilize a HashTable to search for the required pair. We can iterate through the array one number at a time. Let’s say during our iteration we are at number ‘X’, so we need to find ‘Y’ such that “X + Y == Target”. We will do two things here:
+
+* Search for ‘Y’ (which is equivalent to “Target - X”) in the HashTable. If it is there, we have found the required pair.
+* Otherwise, insert “X” in the HashTable, so that we can search it for the later numbers.
+
+Here is what our algorithm will look like:
+
+```java
+class PairWithTargetSum {
+
+  public static int[] search(int[] arr, int targetSum) {
+
+    HashMap<Integer, Integer> numbers = new HashMap<Integer,Integer>();
+
+    for(int i = 0; i < arr.length; i++) {
+      if(numbers.containsKey(targetSum-arr[i])) {
+        return new int[] { numbers.get(targetSum-arr[i]), i };
+      } else {
+        numbers.put(arr[i], i);
+      }
+    }
+
+    return new int[]{-1,-1};
+  
+  }
+}
+```
+
+Time Complexity
+The time complexity of the above algorithm will be O(N), where ‘N’ is the total number of elements in the given array.
+
+Space Complexity
+The space complexity will also be O(N), as, in the worst case, we will be pushing ‘N’ numbers in the HashTable.
+
+* Solutions :
+
+worst = iterate all element with 2 fors time complexity(n^2)->quadratic and space complexity(1)
+average = iterate n first element and second element use binary search (n * log n) and space complexity(1)
+improved = hash table time (n) but also space is (n)
+best = two pointers time(n)-> lineal but space is (1) ->constant
+
+
+
+
+
+
+

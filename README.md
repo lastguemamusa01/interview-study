@@ -1497,6 +1497,45 @@ Let’s take the example-2 mentioned above to visually see our algorithm:
 
 
 ```java
+
+class TreeNode {
+  int val;
+  TreeNode left;
+  TreeNode right;
+
+  TreeNode(int x) {
+    val = x;
+  }
+};
+
+class TreePathSum {
+  public static boolean hasPath(TreeNode root, int sum) {
+    //dfs is recursive algorithm
+    // check the input first
+    if(root == null) return false;
+
+    //condition to end the recursive call, the current node is leaf(no chidls -> left or right node)
+    // and the sum is equal to currentNode value
+    if(root.left == null && root.right == null && root.val == sum) return true;
+
+    // recursive call to child nodes
+    // we need to rest the current value
+    return hasPath(root.left, sum-root.val) || hasPath(root.right, sum-root.val);
+
+  }
+
+  public static void main(String[] args) {
+    TreeNode root = new TreeNode(12);
+    root.left = new TreeNode(7);
+    root.right = new TreeNode(1);
+    root.left.left = new TreeNode(9);
+    root.right.left = new TreeNode(10);
+    root.right.right = new TreeNode(5);
+    System.out.println("Tree has path: " + TreePathSum.hasPath(root, 23));
+    System.out.println("Tree has path: " + TreePathSum.hasPath(root, 16));
+  }
+}
+
 ```
 
 Time complexity

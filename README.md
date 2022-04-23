@@ -1367,6 +1367,69 @@ Let’s take the example-2 mentioned above to visually represent our algorithm:
 
 
 ```java
+import java.util.*;
+
+class TreeNode {
+  int val;
+  TreeNode left;
+  TreeNode right;
+
+  TreeNode(int x) {
+    val = x;
+  }
+};
+
+class LevelOrderTraversal {
+  public static List<List<Integer>> traverse(TreeNode root) {
+    // create the  list of list result and return the result
+    List<List<Integer>> result = new ArrayList<List<Integer>>();
+    
+    // check the input validation, if root is null return empty result
+    if(root == null) return result;
+
+    // create temprary queue to store the level nodes
+    Queue<TreeNode> queue = new LinkedList<TreeNode>();
+
+    // insert the root to the queue 
+    queue.offer(root);
+
+    // create the condition to traverse the tree
+    while(!queue.isEmpty()) {
+      // get the size of the queue
+      int levelSize = queue.size();
+      // create the levelNodes to store each level nodes
+      List<Integer> levelNodes = new ArrayList<Integer>(levelSize);
+
+      // traeverse the queue
+      for(int i = 0; i < levelSize; i++) {
+        // get the currentNode from queue
+        TreeNode currentNode = queue.poll();
+        // add the currentNode value to the levelNodes
+        levelNodes.add(currentNode.val);
+        // check the (child)left and right node of current node, if exist add to the queue
+        if(currentNode.left != null) queue.offer(currentNode.left);
+        if(currentNode.right != null) queue.offer(currentNode.right);
+      }
+
+      // add the levelNodes to the result
+      result.add(levelNodes);
+    }
+    
+    return result;
+    
+  }
+
+  public static void main(String[] args) {
+    TreeNode root = new TreeNode(12);
+    root.left = new TreeNode(7);
+    root.right = new TreeNode(1);
+    root.left.left = new TreeNode(9);
+    root.right.left = new TreeNode(10);
+    root.right.right = new TreeNode(5);
+    List<List<Integer>> result = LevelOrderTraversal.traverse(root);
+    System.out.println("Level order traversal: " + result);
+  }
+}
 ```
 
 Time complexity

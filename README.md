@@ -983,6 +983,60 @@ Given two intervals (‘a’ and ‘b’), there will be six different ways the 
 
 ![image](https://user-images.githubusercontent.com/25869911/164877773-47e52ca4-06e1-4c4f-bb1c-dc3923a9c5da.png)
 
+Understanding the above six cases will help us in solving all intervals related problems. Let’s jump onto our first problem to understand the Merge Interval pattern.
+
+#### Merge Intervals (medium)
+
+Problem Statement 
+
+Given a list of intervals, merge all the overlapping intervals to produce a list that has only mutually exclusive intervals.
+
+Example 1:
+
+```terminal
+Intervals: [[1,4], [2,5], [7,9]]
+Output: [[1,5], [7,9]]
+Explanation: Since the first two intervals [1,4] and [2,5] overlap, we merged them into 
+one [1,5].
+```
+
+![image](https://user-images.githubusercontent.com/25869911/164877871-df1298bf-71a0-4de3-85ab-06d54b940446.png)
+
+Example 2:
+
+```terminal
+Intervals: [[6,7], [2,4], [5,9]]
+Output: [[2,4], [5,9]]
+Explanation: Since the intervals [6,7] and [5,9] overlap, we merged them into one [5,9].
+```
+
+Example 3:
+```terminal
+Intervals: [[1,4], [2,6], [3,5]]
+Output: [[1,6]]
+Explanation: Since all the given intervals overlap, we merged them into one.
+```
+
+Solution 
+
+Let’s take the example of two intervals (‘a’ and ‘b’) such that a.start <= b.start. There are four possible scenarios:
+
+![image](https://user-images.githubusercontent.com/25869911/164878371-80238214-41cf-42d9-8da7-67e9eca2d40a.png)
+
+Our goal is to merge the intervals whenever they overlap. For the above-mentioned three overlapping scenarios (2, 3, and 4), this is how we will merge them:
+
+![image](https://user-images.githubusercontent.com/25869911/164878402-f4ff5553-6bf8-46f8-bbac-d0afc961adcf.png)
+
+The diagram above clearly shows a merging approach. Our algorithm will look like this:
+
+* Sort the intervals on the start time to ensure a.start <= b.start
+* If ‘a’ overlaps ‘b’ (i.e. b.start <= a.end), we need to merge them into a new interval ‘c’ such that:
+
+```terminal
+c.start = a.start
+c.end = max(a.end, b.end)
+```
+* We will keep repeating the above two steps to merge ‘c’ with the next interval if it overlaps with ‘c’.
 
 
-
+    

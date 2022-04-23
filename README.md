@@ -1495,3 +1495,14 @@ Let’s take the example-2 mentioned above to visually see our algorithm:
 
 ![image](https://user-images.githubusercontent.com/25869911/164945803-204d8ad2-b798-4a29-b61a-f69e4519e102.png)
 
+
+```java
+```
+
+Time complexity
+The time complexity of the above algorithm is O(N), where ‘N’ is the total number of nodes in the tree. This is due to the fact that we traverse each node once.
+
+Space complexity
+
+The space complexity of the above algorithm will be O(N) in the worst case. This space will be used to store the recursion stack. The worst case will happen when the given tree is a linked list (i.e., every node has only one child).
+

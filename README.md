@@ -1187,7 +1187,27 @@ Let’s see this visually with the above-mentioned Example-2:
 ![image](https://user-images.githubusercontent.com/25869911/164882990-a501d153-471f-4a0a-aa7f-81fbd89a501c.png)
 
 ```java
+class CyclicSort {
 
+  public static void sort(int[] nums) {
+    int pos = 0;
+    while( pos < nums.length) {
+      int orderedPos = nums[pos] -1;
+      if(nums[pos] != nums[orderedPos]) {
+        swap(nums, pos, orderedPos);
+      } else { // is ordered 
+        pos++;
+      }
+    }
+  }
+
+  private static void swap(int[] nums, int pos, int orderedPos) {
+    int temp = nums[pos];
+    nums[pos] = nums[orderedPos];
+    nums[orderedPos] = temp;
+  }
+
+}
 ```
 
 Time complexity

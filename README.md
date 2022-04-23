@@ -1367,5 +1367,3 @@ Let’s take the example-2 mentioned above to visually represent our algorithm:
 
 
 
-
-* After removing each node from the queue, insert both of its children into the queue.

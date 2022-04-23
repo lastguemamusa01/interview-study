@@ -1624,3 +1624,11 @@ Now, we have two elements in the Max Heap and no elements in Min Heap. Let’s t
 ```java
 ```
 
+Time complexity
+
+The time complexity of the insertNum() will be O(logN) due to the insertion in the heap. The time complexity of the findMedian() will be O(1) as we can find the median from the top elements of the heaps.
+
+Space complexity
+
+The space complexity will be O(N) because, as at any time, we will be storing all the numbers.
+ 

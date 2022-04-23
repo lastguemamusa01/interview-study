@@ -1038,5 +1038,26 @@ c.end = max(a.end, b.end)
 ```
 * We will keep repeating the above two steps to merge ‘c’ with the next interval if it overlaps with ‘c’.
 
+```java
+```
 
-    
+Time complexity
+
+The time complexity of the above algorithm is O(N * logN), where ‘N’ is the total number of intervals. We are iterating the intervals only once which will take O(N)
+O(N), in the beginning though, since we need to sort the intervals, our algorithm will take O(N * logN)
+
+
+Space complexity
+The space complexity of the above algorithm will be O(N) as we need to return a list containing all the merged intervals. We will also need O(N) space for sorting. For Java, depending on its version, Collections.sort() either uses Merge sort or Timsort, and both these algorithms need O(N) space. Overall, our algorithm has a space complexity of O(N).
+
+Similar Problems
+
+Problem 1: Given a set of intervals, find out if any two intervals overlap.
+
+Example:
+```terminal
+Intervals: [[1,4], [2,5], [7,9]]
+Output: true
+Explanation: Intervals [1,4] and [2,5] overlap
+Solution: We can follow the same approach as discussed above to find if any two intervals overlap.
+```

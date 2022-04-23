@@ -1678,6 +1678,8 @@ class MedianOfAStream {
 }
 ```
 
+https://github.com/lastguemamusa01/LeetCode-Exercises/tree/main/295-find-median-from-data-stream
+
 Time complexity
 
 The time complexity of the insertNum() will be O(logN) due to the insertion in the heap. The time complexity of the findMedian() will be O(1) as we can find the median from the top elements of the heaps.
@@ -1686,3 +1688,5 @@ Space complexity
 
 The space complexity will be O(N) because, as at any time, we will be storing all the numbers.
  
+### Pattern: Subsets
+

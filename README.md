@@ -1134,5 +1134,6 @@ Example:
 Intervals: [[1,4], [2,5], [7,9]]
 Output: true
 Explanation: Intervals [1,4] and [2,5] overlap
-Solution: We can follow the same approach as discussed above to find if any two intervals overlap.
 ```
+
+Solution: We can follow the same approach as discussed above to find if any two intervals overlap.

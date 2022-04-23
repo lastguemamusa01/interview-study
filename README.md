@@ -1223,3 +1223,39 @@ Space complexity
 The algorithm runs in constant space O(1)
 
 
+### Pattern: In-place Reversal of a LinkedList
+
+In a lot of problems, we are asked to reverse the links between a set of nodes of a LinkedList. Often, the constraint is that we need to do this in-place, i.e., using the existing node objects and without using extra memory.
+
+In-place Reversal of a LinkedList pattern describes an efficient way to solve the above problem. In the following chapters, we will solve a bunch of problems using this pattern.
+
+Let’s jump on to our first problem to understand this pattern.
+
+#### Reverse a LinkedList (easy)
+
+Problem Statement
+
+Given the head of a Singly LinkedList, reverse the LinkedList. Write a function to return the new head of the reversed LinkedList.
+
+Solution
+
+To reverse a LinkedList, we need to reverse one node at a time. We will start with a variable current which will initially point to the head of the LinkedList and a variable previous which will point to the previous node that we have processed; initially previous will point to null.
+
+In a stepwise manner, we will reverse the current node by pointing it to the previous before moving on to the next node. Also, we will update the previous to always point to the previous node that we have processed. Here is the visual representation of our algorithm:
+
+![image](https://user-images.githubusercontent.com/25869911/164883876-277d4b91-8bf3-440b-a048-795d2eee48a2.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164883900-3513c50b-2408-4c2c-b4c0-b3534372aa56.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164883906-bee6f16a-c194-48d9-86b0-0ded8d36a905.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164883914-7795b9dd-2a85-4b1c-8c1e-fc6ea0b625da.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164883923-b98961af-6c0c-4274-b989-b8fb9e1728f2.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164883935-c42e4d48-4dbc-4066-8a09-33cca4fb7f43.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164883970-f8272612-785a-45ff-8d53-b50794a01c6c.png)
+
+
+

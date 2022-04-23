@@ -1622,6 +1622,60 @@ Now, we have two elements in the Max Heap and no elements in Min Heap. Let’s t
 (3+4)/2=3.5
 
 ```java
+import java.util.*;
+
+class MedianOfAStream {
+
+  PriorityQueue<Integer> maxHeap; // first half of numbers
+  PriorityQueue<Integer> minHeap; // second half of numbers
+
+  MedianOfAStream() {
+    maxHeap = new PriorityQueue<Integer>((a,b) -> b-a);
+    minHeap = new PriorityQueue<Integer>((a,b) -> a-b);
+  }
+
+  public void insertNum(int num) {
+    // check the input validation
+    // when maxHeap is empty alway insert the number first to maxHeap
+    // or when the number <= maxHeap peek insert to max heap
+    // else insert to the min heap
+    if(maxHeap.isEmpty() || num <= maxHeap.peek()) {
+      maxHeap.add(num);
+    } else {
+      minHeap.add(num);
+    }
+
+    // balance the two Heaps
+    // when compare the max heap to minHeap, we need to add +1 min heap
+    // because max heap always have one more number than min heap
+    if(maxHeap.size() > minHeap.size()+1) {
+      minHeap.add(maxHeap.poll());
+    } else if (maxHeap.size() < minHeap.size()) {
+      maxHeap.add(minHeap.poll());
+    }
+  }
+
+  public double findMedian() {
+    // when the two heap size is quals is even number the median
+    if(maxHeap.size() == minHeap.size()) {
+      return (maxHeap.peek()+minHeap.peek())/2.0;
+    }
+
+    // when is odd, the median will be maxHeap, maxHeap have always one more number thank minHeap
+    return maxHeap.peek();
+  }
+
+  public static void main(String[] args) {
+    MedianOfAStream medianOfAStream = new MedianOfAStream();
+    medianOfAStream.insertNum(3);
+    medianOfAStream.insertNum(1);
+    System.out.println("The median is: " + medianOfAStream.findMedian());
+    medianOfAStream.insertNum(5);
+    System.out.println("The median is: " + medianOfAStream.findMedian());
+    medianOfAStream.insertNum(4);
+    System.out.println("The median is: " + medianOfAStream.findMedian());
+  }
+}
 ```
 
 Time complexity

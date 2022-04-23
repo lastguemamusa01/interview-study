@@ -1257,5 +1257,59 @@ In a stepwise manner, we will reverse the current node by pointing it to the pre
 
 ![image](https://user-images.githubusercontent.com/25869911/164883970-f8272612-785a-45ff-8d53-b50794a01c6c.png)
 
+```java
+class ListNode {
+  int value = 0;
+  ListNode next;
+
+  ListNode(int value) {
+    this.value = value;
+  }
+}
+
+class ReverseLinkedList {
+
+  public static ListNode reverse(ListNode head) {
+    ListNode current = head;
+    ListNode previous = null;
+    ListNode next = null;
+
+    while(current != null) {
+      next = current.next; // store temporary next node in next
+      current.next = previous; // change the node direction to the previous
+      previous = current; // previous node is current node
+      current = next; // current node is next node
+    }
+
+    // we need to return previous, because in the end previous will be new head
+    return previous;
+
+  }
+
+  public static void main(String[] args) {
+    ListNode head = new ListNode(2);
+    head.next = new ListNode(4);
+    head.next.next = new ListNode(6);
+    head.next.next.next = new ListNode(8);
+    head.next.next.next.next = new ListNode(10);
+
+    ListNode result = ReverseLinkedList.reverse(head);
+    System.out.print("Nodes of the reversed LinkedList are: ");
+    while (result != null) {
+      System.out.print(result.value + " ");
+      result = result.next;
+    }
+  }
+}
+```
+
+Time complexity
+
+The time complexity of our algorithm will be O(N) where ‘N’ is the total number of nodes in the LinkedList.
+
+Space complexity
+
+We only used constant space, therefore, the space complexity of our algorithm is O(1)
+
 
 

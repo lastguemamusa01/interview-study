@@ -977,3 +977,12 @@ Time and Space Complexity: The above algorithm runs in O(N) time complexity and 
 
 ### Pattern: Merge Intervals
 
+This pattern describes an efficient technique to deal with overlapping intervals. In a lot of problems involving intervals, we either need to find overlapping intervals or merge intervals if they overlap.
+
+Given two intervals (‘a’ and ‘b’), there will be six different ways the two intervals can relate to each other:
+
+![image](https://user-images.githubusercontent.com/25869911/164877773-47e52ca4-06e1-4c4f-bb1c-dc3923a9c5da.png)
+
+
+
+

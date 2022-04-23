@@ -1441,4 +1441,57 @@ Space complexity
 
 The space complexity of the above algorithm will be O(N) as we need to return a list containing the level order traversal. We will also need O(N) space for the queue. Since we can have a maximum of N/2 nodes at any level (this could happen only at the lowest level), therefore we will need O(N) space to store them in the queue.
 
+### Pattern: Tree Depth First Search
+
+This pattern is based on the Depth First Search (DFS) technique to traverse a tree.
+
+We will be using recursion (or we can also use a stack for the iterative approach) to keep track of all the previous (parent) nodes while traversing. This also means that the space complexity of the algorithm will be O(H), where ‘H’ is the maximum height of the tree.
+
+Let’s jump onto our first problem to understand this pattern.
+
+#### Binary Tree Path Sum (easy)
+
+Problem Statement
+
+Given a binary tree and a number ‘S’, find if the tree has a path from root-to-leaf such that the sum of all the node values of that path equals ‘S’.
+
+![image](https://user-images.githubusercontent.com/25869911/164945610-9486df1c-be58-44fb-b0c3-1446b2c3d47b.png)
+
+
+Solution
+
+As we are trying to search for a root-to-leaf path, we can use the Depth First Search (DFS) technique to solve this problem.
+
+To recursively traverse a binary tree in a DFS fashion, we can start from the root and at every step, make two recursive calls one for the left and one for the right child.
+
+Here are the steps for our Binary Tree Path Sum problem:
+
+* Start DFS with the root of the tree.
+* If the current node is not a leaf node, do two things:
+  * Subtract the value of the current node from the given number to get a new sum => S = S - node.value
+  * Make two recursive calls for both the children of the current node with the new number calculated in the previous step.
+* At every step, see if the current node being visited is a leaf node and if its value is equal to the given number ‘S’. If both these conditions are true, we have found the required root-to-leaf path, therefore return true.
+* If the current node is a leaf but its value is not equal to the given number ‘S’, return false.
+
+Let’s take the example-2 mentioned above to visually see our algorithm:
+
+![image](https://user-images.githubusercontent.com/25869911/164945761-f0689db7-04a1-40c0-ae77-681023a9ed3b.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164945768-f574597a-9858-4433-bdc0-a27def9b0d22.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164945770-4b776f78-caad-4d9a-accd-5c5b0fb908bf.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164945780-29ba2371-3d6d-435f-a53c-9d78e15d79f5.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164945784-7c720b0a-a840-4c28-8d3b-01fb3d621fd9.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164945787-f08cf3ce-677a-46fe-9eca-2879529f7b4f.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164945790-d8117b2c-9c2b-4b03-9396-049bced9b8b4.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164945794-6adc63da-b3bd-425d-8361-173cb92b08ee.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164945798-f496e243-b7cd-4967-9f39-e1e884cd46fe.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164945803-204d8ad2-b798-4a29-b61a-f69e4519e102.png)
 

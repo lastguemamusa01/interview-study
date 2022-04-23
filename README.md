@@ -412,10 +412,11 @@ steps:
 In many problems dealing with an array (or a LinkedList), we are asked to find or calculate something among all the subarrays (or sublists) of a given size. For example, take a look at this problem:
 
 ### Pattern: Sliding Window
+
 #### Given an array, find the average of all subarrays of ‘K’ contiguous elements in it.
 
 * Array: [1, 3, 2, 6, -1, 4, 1, 8, 2], K=5
-* 
+ 
 Here, we are asked to find the average of all subarrays of ‘5’ contiguous elements in the given array. Let’s solve this:
 
 * For the first 5 numbers (subarray from index 0-4), the average is: (1+3+2+6-1)/5 => 2.2
@@ -1147,6 +1148,8 @@ This pattern describes an interesting approach to deal with problems involving a
 To efficiently solve this problem, we can use the fact that the input array contains numbers in the range of 1 to n. For example, to efficiently sort the array, we can try placing each number at its correct place, i.e., placing 1 at index '0', placing 2 at index ‘1’, and so on. Once we are done with the sorting, we can iterate the array to find all indices missing the correct numbers. These will be our required numbers.
 
 Let’s jump on to our first problem to understand the Cyclic Sort pattern in detail.
+
+#### Cyclic Sort(easy)
 
 Problem Statement
 

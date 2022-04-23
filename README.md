@@ -1331,6 +1331,41 @@ Example 1:
 
 ![image](https://user-images.githubusercontent.com/25869911/164943709-8bb2cf4e-9313-4e98-b2f6-e4391b6b8bee.png)
 
+Example 2:
+
+![image](https://user-images.githubusercontent.com/25869911/164943747-7ff1c268-9ced-415f-b5a4-c8d881c88f63.png)
+
+
+Solution
+
+Since we need to traverse all nodes of each level before moving onto the next level, we can use the Breadth First Search (BFS) technique to solve this problem.
+
+We can use a Queue to efficiently traverse in BFS fashion. Here are the steps of our algorithm:
+
+* Start by pushing the root node to the queue.
+* Keep iterating until the queue is empty.
+* In each iteration, first count the elements in the queue (let’s call it levelSize). We will have these many nodes in the current level.
+* Next, remove levelSize nodes from the queue and push their value in an array to represent the current level.
+* After removing each node from the queue, insert both of its children into the queue.
+* If the queue is not empty, repeat from step 3 for the next level.
+
+Let’s take the example-2 mentioned above to visually represent our algorithm:
+
+![image](https://user-images.githubusercontent.com/25869911/164944045-80d51f4d-3059-445f-a83e-c82a596b31fe.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164944074-10f45413-5dd6-4d31-9f97-6f207a4546b1.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164944081-a8ec3013-daf4-434b-a56e-b9ceeb662f68.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164944120-ce139680-984a-4592-ba67-59ed2b413403.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164944143-70336f39-4985-4f8d-81a9-854d98617ba6.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164944148-a8b05076-59b2-4187-a137-0f2b1b65d5ca.png)
+
+![image](https://user-images.githubusercontent.com/25869911/164944155-88fd6d98-a0be-41c1-8c34-2fda69054281.png)
 
 
 
+
+* After removing each node from the queue, insert both of its children into the queue.

@@ -1039,6 +1039,81 @@ c.end = max(a.end, b.end)
 * We will keep repeating the above two steps to merge ‘c’ with the next interval if it overlaps with ‘c’.
 
 ```java
+import java.util.*;
+
+class Interval {
+  int start;
+  int end;
+
+  public Interval(int start, int end) {
+    this.start = start;
+    this.end = end;
+  }
+};
+
+class MergeIntervals {
+
+  public static List<Interval> merge(List<Interval> intervals) {
+    // check first the input, when there is one element, return that element, dont need comparations
+    if(intervals.size() < 2) return intervals;
+
+    // we need to sort by start time first, to do some traverse the List -> n log n
+    Collections.sort(intervals, (a,b) -> Integer.compare(a.start, b.start));
+
+    // create the mergedIntervals list,Interator to iterate and get the first value of interval in the list
+    List<Interval> mergedIntervals = new LinkedList<Interval>();
+    Iterator<Interval> intervalItr = intervals.iterator();
+    Interval interval = intervalItr.next(); // get the first element, minumun list size = 2
+    int start = interval.start;
+    int end = interval.end;
+
+    // we need to traver the list and find the overlapping or not overlapping
+    while(intervalItr.hasNext()) {
+      interval = intervalItr.next(); // the next element
+      if(interval.start <= end) { // overlapping, we need to merge updating only the max value of the ends
+        end = Math.max(end, interval.end);
+      } else { // no overlapping, add the values to mergedIntervals, we need to update to the next interval
+        mergedIntervals.add(new Interval(start,end));
+        start = interval.start;
+        end = interval.end;
+      }
+    }
+
+    // but in the case where there is no overlapping we need to add the last interval values
+    mergedIntervals.add(new Interval(start,end));
+
+    return mergedIntervals;
+  }
+
+  public static void main(String[] args) {
+    List<Interval> input = new ArrayList<Interval>();
+    input.add(new Interval(1, 4));
+    input.add(new Interval(2, 5));
+    input.add(new Interval(7, 9));
+    System.out.print("Merged intervals: ");
+    for (Interval interval : MergeIntervals.merge(input))
+      System.out.print("[" + interval.start + "," + interval.end + "] ");
+    System.out.println();
+
+    input = new ArrayList<Interval>();
+    input.add(new Interval(6, 7));
+    input.add(new Interval(2, 4));
+    input.add(new Interval(5, 9));
+    System.out.print("Merged intervals: ");
+    for (Interval interval : MergeIntervals.merge(input))
+      System.out.print("[" + interval.start + "," + interval.end + "] ");
+    System.out.println();
+
+    input = new ArrayList<Interval>();
+    input.add(new Interval(1, 4));
+    input.add(new Interval(2, 6));
+    input.add(new Interval(3, 5));
+    System.out.print("Merged intervals: ");
+    for (Interval interval : MergeIntervals.merge(input))
+      System.out.print("[" + interval.start + "," + interval.end + "] ");
+    System.out.println();
+  }
+}
 ```
 
 Time complexity

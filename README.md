@@ -4,7 +4,7 @@ interview study materials 101
 
 ## Interview exposed book
 
-1 - bofre the search
+1 - before the search
 
 find what kind of programmer your are(what do you like to do)
 

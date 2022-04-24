@@ -1900,3 +1900,131 @@ Space complexity
 The algorithm runs in constant space O(1)
 
 
+### Pattern: Bitwise XOR
+
+XOR is a logical bitwise operator that returns 0 (false) if both bits are the same and returns 1 (true) otherwise. In other words, it only returns 1 if exactly one bit is set to 1 out of the two bits in compariso
+
+![image](https://user-images.githubusercontent.com/25869911/165000143-562c6430-c65c-4676-b3b2-adc9c15deb47.png)
+
+It is surprising to know the approaches that the XOR operator enables us to solve certain problems. For example, let’s take a look at the following problem:
+
+* Given an array of n-1 integers in the range from 1 to n, find the one number that is missing from the array.
+
+Example:
+```terminal
+Input: 1, 5, 2, 6, 4
+Answer: 3
+```
+
+A straight forward approach to solve this problem can be:
+
+* Find the sum of all integers from 1 to n; let’s call it s1.
+* Subtract all the numbers in the input array from s1; this will give us the missing number.
+
+This is what the algorithm will look like:
+
+```java
+import java.util.*;
+
+public class MissingNumber {
+    
+    private static int findMissingNumber(int[] array) {
+        // get the size of the numbers to sum
+        int size = array.length+1;
+        // create sum and for to sum all numbers
+        int missingNum = 0;
+        
+        for(int i = 1; i <= size; i++) {
+            missingNum += i;
+        }
+        
+        // to found the missing number we just rest the array number from sum
+        for(int num: array) {
+            missingNum -= num;    
+        }
+        
+        return missingNum;
+    }
+
+    public static void main(String args[]) {
+        int[] arr = new int[] { 1, 5, 2, 6, 4 };
+        System.out.print("Missing number is: " + MissingNumber.findMissingNumber(arr));
+    }
+}
+```
+
+Time & Space complexity: The time complexity of the above algorithm is O(n) and the space complexity is O(1)
+
+What could go wrong with the above algorithm?
+
+* While finding the sum of numbers from 1 to n, we can get integer overflow when n is large
+
+Remember the important property of XOR that it returns 0 if both the bits in comparison are the same. In other words, XOR of a number with itself will always result in 0. This means that if we XOR all the numbers in the input array with all numbers from the range 1 to n then each number in the input is going to get zeroed out except the missing number. Following are the set of steps to find the missing number using XOR:
+ 
+* XOR all the numbers from 1 to n, let’s call it x1.
+* XOR all the numbers in the input array, let’s call it x2.
+* The missing number can be found by x1 XOR x2.
+
+Here is what the algorithm will look like:
+
+```java
+import java.util.*;
+
+public class MissingNumber {
+    
+    private static int findMissingNumber(int[] arr) {
+       // get the sum of xor 1 to n
+       // get the size of n
+       int n = arr.length+1;
+       int x0 = 1;
+       for(int i=2; i <= n; i++) {
+           x0 ^= i; 
+       }
+       
+       // get the xor values of the array
+       int x1 = arr[0];
+       for(int i=1; i < n-1; i++) {
+           x1 ^= arr[i];
+       }
+       
+       // return the missing number 
+       return x0^x1;
+       
+    }
+
+    
+    public static void main(String args[]) {
+        int[] arr = new int[] { 1, 5, 2, 6, 4 };
+        System.out.print("Missing number is: " + MissingNumber.findMissingNumber(arr));
+    }
+}
+```
+
+https://github.com/lastguemamusa01/LeetCode-Exercises/tree/main/268-missing-number
+
+Time & Space complexity: The time complexity of the above algorithm is O(n) and the space complexity is O(1). The time and space complexities are the same as that of the previous solution but, in this algorithm, we will not have any integer overflow problem.
+
+Important properties of XOR to remember
+
+Following are some important properties of XOR to remember:
+
+Taking XOR of a number with itself returns 0, e.g.,
+```terminal
+1 ^ 1 = 0
+29 ^ 29 = 0
+```   
+Taking XOR of a number with 0 returns the same number, e.g.,
+```terminal
+1 ^ 0 = 1
+31 ^ 0 = 31
+```
+XOR is Associative & Commutative, which means:
+```terminal
+(a ^ b) ^ c = a ^ (b ^ c)
+a ^ b = b ^ a
+```
+In the following chapters, we will apply the XOR pattern to solve some interesting problems.
+
+#### Single Number (easy)
+
+

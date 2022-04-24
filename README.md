@@ -1733,6 +1733,42 @@ Here is the visual representation of the above steps:
 Since the input set has distinct elements, the above steps will ensure that we will not have any duplicate subsets.
 
 ```java
+import java.util.*;
+
+class Subsets {
+
+  public static List<List<Integer>> findSubsets(int[] nums) {
+    // check some input restriction validation
+    // create the subsets tu be returned
+    // BFS
+    List<List<Integer>> subsets = new ArrayList<List<Integer>>();
+    // add the empty list
+    subsets.add(new ArrayList<Integer>());
+    // traverse the int array
+    for(int currentNumber:  nums) {
+      // get the size of the subsets
+      int subsetSize = subsets.size();
+      // we traverse the subsetSizes
+      for(int i = 0; i < subsetSize; i++) {
+        // create new set copying the subset elements
+        List<Integer> set = new ArrayList<Integer>(subsets.get(i));
+        // add the currentNumber
+        set.add(currentNumber);
+        // add the new sets to the subsets
+        subsets.add(set);
+      }
+    }
+    return subsets;
+  }
+
+  public static void main(String[] args) {
+    List<List<Integer>> result = Subsets.findSubsets(new int[] { 1, 3 });
+    System.out.println("Here is the list of subsets: " + result);
+
+    result = Subsets.findSubsets(new int[] { 1, 5, 3 });
+    System.out.println("Here is the list of subsets: " + result);
+  }
+}
 ```
 
 Time complexity#

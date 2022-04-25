@@ -2263,6 +2263,73 @@ Given lists: L1=[2, 6, 8], L2=[3, 6, 7], L3=[1, 3, 4]
 We’ll repeat the above step to populate our merged array.
 
 ```java
+import java.util.*;
+
+class ListNode {
+    int value;
+    ListNode next;
+    
+    ListNode(int value) {
+        this.value = value;
+    }
+}
+
+public class MergeKSortedLists {
+    
+    private static ListNode merge(ListNode[] lists) {
+        
+        // input validationt
+        // create the minHeap of priortyQueue
+        PriorityQueue<ListNode> minHeap = new PriorityQueue<ListNode>((a,b) -> a.value-b.value);
+        
+        // add the first 3 root node to the minHeap
+        for(ListNode root: lists) {
+            if(root != null) minHeap.add(root);
+        }
+        
+        // we need to create head and tail node
+        // add the minHeap peek minor element to the node
+        // condition to traverse minheap is not empty
+        ListNode headNode = null, tailNode= null;
+        while(!minHeap.isEmpty()) {
+            // pull the peek element
+            ListNode node = minHeap.poll();
+            // first time
+            if(headNode == null) headNode = tailNode = node;
+            else {
+                tailNode.next = node;
+                tailNode = tailNode.next;
+            }
+            // need to add the next element of the node to minHeap
+            if(node.next != null) minHeap.add(node.next);
+        }
+        
+        // return the head
+        return headNode;
+   
+    }
+
+    
+    public static void main(String args[]) {
+        ListNode l1 = new ListNode(2);
+        l1.next = new ListNode(6);
+        l1.next.next = new ListNode(8);
+    
+        ListNode l2 = new ListNode(3);
+        l2.next = new ListNode(6);
+        l2.next.next = new ListNode(7);
+    
+        ListNode l3 = new ListNode(1);
+        l3.next = new ListNode(3);
+        l3.next.next = new ListNode(4);
+        
+        ListNode result = MergeKSortedLists.merge(new ListNode[] {l1,l2,l3});
+        while(result != null) {
+            System.out.print(result.value+" ");
+            result = result.next;
+        }
+    }
+}
 ```
 
 Time complexity

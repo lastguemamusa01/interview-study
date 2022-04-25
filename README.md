@@ -2339,3 +2339,7 @@ Since we’ll be going through all the elements of all arrays and will be removi
 Space complexity
 
 The space complexity will be O(K) because, at any time, our min-heap will be storing one number from all the ‘K’ input arrays.
+
+### Pattern : 0/1 Knapsack (Dynamic Programming)
+
+

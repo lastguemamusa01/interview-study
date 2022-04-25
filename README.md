@@ -2332,6 +2332,8 @@ public class MergeKSortedLists {
 }
 ```
 
+https://github.com/lastguemamusa01/LeetCode-Exercises/tree/main/21-merge-two-sorted-lists
+
 Time complexity
 
 Since we’ll be going through all the elements of all arrays and will be removing/adding one element to the heap in each step, the time complexity of the above algorithm will be O(N*logK), where ‘N’ is the total number of elements in all the ‘K’ input arrays.

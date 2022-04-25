@@ -2209,4 +2209,66 @@ Whenever we are given ‘K’ sorted arrays, we can use a Heap to efficiently pe
 
 Let’s see this pattern in action.
 
+#### Merge K Sorted Lists (medium)
 
+Problem Statement
+
+Given an array of ‘K’ sorted LinkedLists, merge them into one sorted list.
+
+Example 1:
+```terminal
+Input: L1=[2, 6, 8], L2=[3, 6, 7], L3=[1, 3, 4]
+Output: [1, 2, 3, 3, 4, 6, 6, 7, 8]
+```
+
+Example 2:
+```terminal
+Input: L1=[5, 8, 9], L2=[1, 7]
+Output: [1, 5, 7, 8, 9]
+```
+
+Solution
+
+A brute force solution could be to add all elements of the given ‘K’ lists to one list and sort it. If there are a total of ‘N’ elements in all the input lists, then the brute force solution will have a time complexity of O(N*logN) as we will need to sort the merged list. Can we do better than this? How can we utilize the fact that the input lists are individually sorted?
+
+If we have to find the smallest element of all the input lists, we have to compare only the smallest (i.e. the first) element of all the lists. Once we have the smallest element, we can put it in the merged list. Following a similar pattern, we can then find the next smallest element of all the lists to add it to the merged list.
+
+The best data structure that comes to mind to find the smallest number among a set of ‘K’ numbers is a Heap. Let’s see how can we use a heap to find a better algorithm.
+
+* We can insert the first element of each array in a Min Heap.
+* After this, we can take out the smallest (top) element from the heap and add it to the merged list.
+* After removing the smallest element from the heap, we can insert the next element of the same list into the heap.
+* We can repeat steps 2 and 3 to populate the merged list in sorted order.
+
+Let’s take the Example-1 mentioned above to go through each step of our algorithm:
+
+Given lists: L1=[2, 6, 8], L2=[3, 6, 7], L3=[1, 3, 4]
+
+* After inserting the 1st element of each list, the heap will have the following elements:
+
+![image](https://user-images.githubusercontent.com/25869911/165009727-02cfabb4-eac3-43c7-ae7c-c3cf5bb39c63.png)
+
+* We’ll take the top number from the heap, insert it into the merged list and add the next number in the heap.
+
+![image](https://user-images.githubusercontent.com/25869911/165009793-0d9f5fa9-1c76-4375-b8ee-7c23d146147c.png)
+
+* Again, we’ll take the top element of the heap, insert it into the merged list and add the next number to the heap.
+
+![image](https://user-images.githubusercontent.com/25869911/165009843-b080caaf-57d4-4d85-a89c-6f62c01ca084.png)
+
+* Repeating the above step, take the top element of the heap, insert it into the merged list and add the next number to the heap. As there are two 3s in the heap, we can pick anyone but we need to take the next element from the corresponding list to insert in the heap.
+
+![image](https://user-images.githubusercontent.com/25869911/165009907-2ecb6c96-a5b9-4f82-9c63-69fb0d1abe99.png)
+
+We’ll repeat the above step to populate our merged array.
+
+```java
+```
+
+Time complexity
+
+Since we’ll be going through all the elements of all arrays and will be removing/adding one element to the heap in each step, the time complexity of the above algorithm will be O(N*logK), where ‘N’ is the total number of elements in all the ‘K’ input arrays.
+
+Space complexity
+
+The space complexity will be O(K) because, at any time, our min-heap will be storing one number from all the ‘K’ input arrays.

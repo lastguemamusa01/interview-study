@@ -2028,3 +2028,185 @@ In the following chapters, we will apply the XOR pattern to solve some interesti
 #### Single Number (easy)
 
 
+Problem Statement
+
+In a non-empty array of integers, every number appears twice except for one, find that single number.
+
+Example 1:
+```terminal
+Input: 1, 4, 2, 1, 3, 2, 3
+Output: 4
+```
+Example 2:
+```terminal
+Input: 7, 9, 7
+Output: 9
+```
+
+Solution
+
+One straight forward solution can be to use a HashMap kind of data structure and iterate through the input:
+
+* If number is already present in HashMap, remove it.
+* If number is not present in HashMap, add it.
+* In the end, only number left in the HashMap is our required single number.
+
+Time and space complexity Time Complexity of the above solution will be O(n) and space complexity will also be O(n)
+
+Can we do better than this using the XOR Pattern?
+
+Solution with XOR
+
+Recall the following two properties of XOR:
+
+* It returns zero if we take XOR of two same numbers.
+* It returns the same number if we XOR with zero.
+
+So we can XOR all the numbers in the input; duplicate numbers will zero out each other and we will be left with the single number.
+
+```java
+class SingleNumber {
+  public static int findSingleNumber(int[] arr) {
+    // first start with 0
+    int num = 0;
+    // do xor for every element
+    // xor property is if is same number will return 0
+    // xor of constant with 0 will return constant
+    for(int i = 0; i < arr.length; i++) {
+      num = num^arr[i];
+    }
+
+    return num;
+
+  }
+
+  public static void main( String args[] ) {
+    System.out.println(findSingleNumber(new int[]{1, 4, 2, 1, 3, 2, 3}));
+  }
+}
+```
+
+https://github.com/lastguemamusa01/LeetCode-Exercises/tree/main/136-single-number
+
+Time Complexity: Time complexity of this solution is O(n) as we iterate through all numbers of the input once.
+
+Space Complexity: The algorithm runs in constant space O(1).
+
+### Pattern: Top 'K' Elements
+
+Any problem that asks us to find the top/smallest/frequent ‘K’ elements among a given set falls under this pattern.
+
+The best data structure that comes to mind to keep track of ‘K’ elements is Heap. This pattern will make use of the Heap to solve multiple problems dealing with ‘K’ elements at a time from a set of given elements.
+
+Let’s jump onto our first problem to develop an understanding of this pattern.
+
+#### Top 'K' Numbers (easy)
+
+Problem Statement
+
+Given an unsorted array of numbers, find the ‘K’ largest numbers in it.
+
+Note: For a detailed discussion about different approaches to solve this problem, take a look at Kth Smallest Number.
+
+Example 1:
+```terminal
+Input: [3, 1, 5, 12, 2, 11], K = 3
+Output: [5, 12, 11]
+```
+
+Example 2:
+```terminal
+Input: [5, 12, 11, -1, 12], K = 3
+Output: [12, 11, 12]
+```
+
+Solution
+
+A brute force solution could be to sort the array and return the largest K numbers. The time complexity of such an algorithm will be O(N*logN) as we need to use a sorting algorithm like Timsort if we use Java’s Collection.sort(). Can we do better than that?
+
+The best data structure that comes to mind to keep track of top ‘K’ elements is Heap. Let’s see if we can use a heap to find a better algorithm.
+
+If we iterate through the array one element at a time and keep ‘K’ largest numbers in a heap such that each time we find a larger number than the smallest number in the heap, we do two things:
+
+* Take out the smallest number from the heap, and
+* Insert the larger number into the heap.
+
+This will ensure that we always have ‘K’ largest numbers in the heap. The most efficient way to repeatedly find the smallest number among a set of numbers will be to use a min-heap. As we know, we can find the smallest number in a min-heap in constant time O(1), since the smallest number is always at the root of the heap. Extracting the smallest number from a min-heap will take O(logN) (if the heap has ‘N’ elements) as the heap needs to readjust after the removal of an element.
+
+Let’s take Example-1 to go through each step of our algorithm:
+
+Given array: [3, 1, 5, 12, 2, 11], and K=3
+
+* First, let’s insert ‘K’ elements in the min-heap.
+* After the insertion, the heap will have three numbers [3, 1, 5] with ‘1’ being the root as it is the smallest element.
+* We’ll iterate through the remaining numbers and perform the above-mentioned two steps if we find a number larger than the root of the heap.
+* The 4th number is ‘12’ which is larger than the root (which is ‘1’), so let’s take out ‘1’ and insert ‘12’. Now the heap will have [3, 5, 12] with ‘3’ being the root as it is the smallest element.
+* The 5th number is ‘2’ which is not bigger than the root of the heap (‘3’), so we can skip this as we already have top three numbers in the heap.
+* The last number is ‘11’ which is bigger than the root (which is ‘3’), so let’s take out ‘3’ and insert ‘11’. Finally, the heap has the largest three numbers: [5, 12, 11]
+
+As discussed above, it will take us O(logK) to extract the minimum number from the min-heap. So the overall time complexity of our algorithm will be O(K*logK+(N-K)*logK) since, first, we insert ‘K’ numbers in the heap and then iterate through the remaining numbers and at every step, in the worst case, we need to extract the minimum number and insert a new number in the heap. This algorithm is better than O(N*logN)
+
+Here is the visual representation of our algorithm:
+
+![image](https://user-images.githubusercontent.com/25869911/165007632-3a657335-d3cb-4f12-b82a-555d31a2a6b5.png)
+
+![image](https://user-images.githubusercontent.com/25869911/165007702-05526f7e-7d3b-4667-9339-b31a45b2dcc7.png)
+
+![image](https://user-images.githubusercontent.com/25869911/165007730-f7e10093-9c2c-40d8-ac97-ff0d7e385ca3.png)
+
+![image](https://user-images.githubusercontent.com/25869911/165007764-5e3d2d71-a985-4aa0-be39-d29f4a947c68.png)
+
+```java
+import java.util.*;
+
+class KLargestNumbers {
+
+  public static List<Integer> findKLargestNumbers(int[] nums, int k) {
+    // check the input validation
+    // declare the minHeap as PriorityQueue
+    PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>();
+    // traverse from 0 to k ,  insert the first k elements in the minHeap
+    for(int i=0; i < k; i++) minHeap.add(nums[i]);
+
+    // traverse from k to array size
+    // if the nums[j] > minHeap peek, pull the peek and the value
+    for(int j=k; j < nums.length; j++) {
+      if(nums[j] > minHeap.peek()) {
+        minHeap.poll();
+        minHeap.add(nums[j]);
+      }
+    }
+
+    // return the minHeap as arrayList
+    return new ArrayList<Integer>(minHeap);
+
+  }
+
+  public static void main(String[] args) {
+    List<Integer> result = KLargestNumbers.findKLargestNumbers(new int[] { 3, 1, 5, 12, 2, 11 }, 3);
+    System.out.println("Here are the top K numbers: " + result);
+
+    result = KLargestNumbers.findKLargestNumbers(new int[] { 5, 12, 11, -1, 12 }, 3);
+    System.out.println("Here are the top K numbers: " + result);
+  }
+}
+```
+
+Time complexity
+
+As discussed above, the time complexity of this algorithm is O(K*logK+(N-K)*logK), which is asymptotically equal to O(N*logK)
+
+Space complexity
+
+The space complexity will be O(K) since we need to store the top ‘K’ numbers in the heap.
+
+
+### Pattern: K-way merge
+
+This pattern helps us solve problems that involve a list of sorted arrays.
+
+Whenever we are given ‘K’ sorted arrays, we can use a Heap to efficiently perform a sorted traversal of all the elements of all arrays. We can push the smallest (first) element of each sorted array in a Min Heap to get the overall minimum. While inserting elements to the Min Heap we keep track of which array the element came from. We can, then, remove the top element from the heap to get the smallest element and push the next element from the same array, to which this smallest element belonged, to the heap. We can repeat this process to make a sorted traversal of all elements.
+
+Let’s see this pattern in action.
+
+

@@ -2674,9 +2674,6 @@ This is how we can implement this algorithm:
     * If a child’s in-degree becomes ‘0’, add it to the sources Queue.
   * Repeat step 1, until the source Queue is empty.
 
-```java
-```
-
 Time Complexity
 
 In step ‘d’, each vertex will become a source only once and each edge will be accessed and removed once. Therefore, the time complexity of the above algorithm will be O(V+E), where ‘V’ is the total number of vertices and ‘E’ is the total number of edges in the graph.

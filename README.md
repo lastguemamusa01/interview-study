@@ -2344,4 +2344,191 @@ The space complexity will be O(K) because, at any time, our min-heap will be sto
 
 ### Pattern : 0/1 Knapsack (Dynamic Programming)
 
+0/1 Knapsack pattern is based on the famous problem with the same name which is efficiently solved using Dynamic Programming (DP).
+
+In this pattern, we will go through a set of problems to develop an understanding of DP. We will always start with a brute-force recursive solution to see the overlapping subproblems, i.e., realizing that we are solving the same problems repeatedly.
+
+After the recursive solution, we will modify our algorithm to apply advanced techniques of Memoization and Bottom-Up Dynamic Programming to develop a complete understanding of this pattern.
+
+Let’s jump onto our first problem.
+
+#### 0/1 Knapsack (medium)
+
+Introduction
+
+Given the weights and profits of ‘N’ items, we are asked to put these items in a knapsack with a capacity ‘C.’ The goal is to get the maximum profit out of the knapsack items. Each item can only be selected once, as we don’t have multiple quantities of any item.
+
+Let’s take Merry’s example, who wants to carry some fruits in the knapsack to get maximum profit. Here are the weights and profits of the fruits:
+
+Items: { Apple, Orange, Banana, Melon }
+Weights: { 2, 3, 1, 4 }
+Profits: { 4, 5, 3, 7 }
+Knapsack capacity: 5
+
+Let’s try to put various combinations of fruits in the knapsack, such that their total weight is not more than 5:
+
+Apple + Orange (total weight 5) => 9 profit
+Apple + Banana (total weight 3) => 7 profit
+Orange + Banana (total weight 4) => 8 profit
+Banana + Melon (total weight 5) => 10 profit
+
+This shows that Banana + Melon is the best combination as it gives us the maximum profit, and the total weight does not exceed the capacity.
+
+Problem Statement
+
+Given two integer arrays to represent weights and profits of ‘N’ items, we need to find a subset of these items which will give us maximum profit such that their cumulative weight is not more than a given number ‘C.’ Each item can only be selected once, which means either we put an item in the knapsack or we skip it.
+
+Basic Solution
+
+A basic brute-force solution could be to try all combinations of the given items (as we did above), allowing us to choose the one with maximum profit and a weight that doesn’t exceed ‘C’. Take the example of four items (A, B, C, and D), as shown in the diagram below. To try all the combinations, our algorithm will look like:
+
+```terminal
+for each item 'i' 
+  create a new set which INCLUDES item 'i' if the total weight does not exceed the capacity, and 
+     recursively process the remaining capacity and items
+  create a new set WITHOUT item 'i', and recursively process the remaining items 
+return the set from the above two sets with higher profit 
+```
+
+Here is a visual representation of our algorithm
+
+![image](https://user-images.githubusercontent.com/25869911/165218254-45d59e15-ed07-4da3-b460-b2c8e8576675.png)
+
+All green boxes have a total weight that is less than or equal to the capacity (7), and all the red ones have a weight that is more than 7. The best solution we have is with items [B, D] having a total profit of 22 and a total weight of 7.
+
+```java
+class Knapsack {
+
+  public int solveKnapsack(int[] profits, int[] weights, int capacity) {
+    return this.knapsackRecursive(profits, weights, capacity, 0);
+  }
+
+  private int knapsackRecursive(int[] profits, int[] weights, int capacity, int currentIndex) {
+    // check the input validation
+    if (capacity <=0 || currentIndex >= profits.length) return 0;
+
+    // get the first profit only if the weights[currentIndex] <= capacity
+    // we need to get currentIndex proftis, sum with the knapsack recursive method
+    // that rest the capacity of the current wieghts and the index need to incremente
+    int profitAdded = 0;
+    if(weights[currentIndex] <= capacity) {
+      profitAdded = profits[currentIndex] + knapsackRecursive(profits,weights, capacity- weights[currentIndex],currentIndex+1);
+    }
+
+    // recursive call to the profit skipped
+    int profitSkipped = knapsackRecursive(profits, weights, capacity, currentIndex+1);
+
+    // return the max from two profits
+    return Math.max(profitAdded, profitSkipped);
+
+  }
+
+  public static void main(String[] args) {
+    Knapsack ks = new Knapsack();
+    int[] profits = {1, 6, 10, 16};
+    int[] weights = {1, 2, 3, 5};
+    int maxProfit = ks.solveKnapsack(profits, weights, 7);
+    System.out.println("Total knapsack profit ---> " + maxProfit);
+    maxProfit = ks.solveKnapsack(profits, weights, 6);
+    System.out.println("Total knapsack profit ---> " + maxProfit);
+  }
+}
+```
+
+Time and Space complexity
+
+The above algorithm’s time complexity is exponential O(2^n), where ‘n’ represents the total number of items. This can also be confirmed from the above recursion tree. As we can see, we will have a total of ‘31’ recursive calls – calculated through (2^n) + (2^n) - 1, which is asymptotically equivalent to O(2^n)
+
+The space complexity is O(n). This space will be used to store the recursion stack. Since the recursive algorithm works in a depth-first fashion, which means that we can’t have more than ‘n’ recursive calls on the call stack at any time.
+
+Overlapping Sub-problems: Let’s visually draw the recursive calls to see if there are any overlapping sub-problems. As we can see, in each recursive call, profits and weights arrays remain constant, and only capacity and currentIndex change. For simplicity, let’s denote capacity with ‘c’ and currentIndex with ‘i’:
+
+![image](https://user-images.githubusercontent.com/25869911/165220169-beb170fe-ff93-4405-a043-a29eda2ce18a.png)
+
+We can clearly see that ‘c:4, i=3’ has been called twice. Hence we have an overlapping sub-problems pattern. We can use Memoization to solve overlapping sub-problems efficiently.
+
+
+### Top-down Dynamic Programming with Memoization
+
+Memoization is when we store the results of all the previously solved sub-problems and return the results from memory if we encounter a problem that has already been solved.
+
+Since we have two changing values (capacity and currentIndex) in our recursive function knapsackRecursive(), we can use a two-dimensional array to store the results of all the solved sub-problems. As mentioned above, we need to store results for every sub-array (i.e., for every possible index ‘i’) and every possible capacity ‘c.’
+
+Here is the code with memoization (see changes in the highlighted lines):
+
+```java
+class Knapsack {
+
+  public int solveKnapsack(int[] profits, int[] weights, int capacity) {
+    // use double array as memoization
+    Integer[][] dp = new Integer[profits.length][capacity+1];
+    return this.knapsackRecursive(dp, profits, weights, capacity, 0);
+  }
+
+  private int knapsackRecursive(Integer[][] dp, int[] profits, int[] weights, int capacity, int currentIndex) {
+    // input validation
+    if( capacity <= 0 || currentIndex >= profits.length) return 0;
+
+    // check if the values existed in memoization
+    if(dp[currentIndex][capacity] != null) return dp[currentIndex][capacity];
+
+    // get the profitAdded
+    // check weight of current index <= capacity
+    // add the current Profits, and recursive call the next profit, but subtracting the current weight
+    // in the capacity and currentIndex need to incremented
+    int profitAdded = 0;
+    if(weights[currentIndex] <= capacity) {
+      profitAdded = profits[currentIndex] + knapsackRecursive(dp, profits, weights, capacity- weights[currentIndex], currentIndex+1);
+    }
+
+    // create the profitSkipped just calling the next index
+    int profitSkipped = knapsackRecursive(dp, profits, weights, capacity, currentIndex+1);
+
+    //store the values in the memoization
+    //return the only max of two profits
+    dp[currentIndex][capacity] = Math.max(profitAdded, profitSkipped);
+    return dp[currentIndex][capacity];
+  }
+
+  public static void main(String[] args) {
+    Knapsack ks = new Knapsack();
+    int[] profits = {1, 6, 10, 16};
+    int[] weights = {1, 2, 3, 5};
+    int maxProfit = ks.solveKnapsack(profits, weights, 7);
+    System.out.println("Total knapsack profit ---> " + maxProfit);
+    maxProfit = ks.solveKnapsack(profits, weights, 6);
+    System.out.println("Total knapsack profit ---> " + maxProfit);
+  }
+}
+```
+Time and Space complexity
+
+Since our memoization array dp[profits.length][capacity+1] stores the results for all subproblems, we can conclude that we will not have more than N*C subproblems (where ‘N’ is the number of items and ‘C’ is the knapsack capacity). This means that our time complexity will be O(N*C).
+
+The above algorithm will use O(N*C) space for the memoization array. Other than that, we will use O(N) space for the recursion call-stack. So the total space complexity will be O(N*C + N), which is asymptotically equivalent to O(N*C).
+
+Bottom-up Dynamic Programming
+
+Let’s try to populate our dp[][] array from the above solution by working in a bottom-up fashion. Essentially, we want to find the maximum profit for every sub-array and every possible capacity. This means that dp[i][c] will represent the maximum knapsack profit for capacity ‘c’ calculated from the first ‘i’ items.
+
+So, for each item at index ‘i’ (0 <= i < items.length) and capacity ‘c’ (0 <= c <= capacity), we have two options:
+
+* Exclude the item at index ‘i.’ In this case, we will take whatever profit we get from the sub-array excluding this item => dp[i-1][c]
+* Include the item at index ‘i’ if its weight is not more than the capacity. In this case, we include its profit plus whatever profit we get from the remaining capacity and from remaining items => profit[i] + dp[i-1][c-weight[i]]
+
+Finally, our optimal solution will be maximum of the above two values:
+
+* dp[i][c] = max (dp[i-1][c], profit[i] + dp[i-1][c-weight[i]]) 
+
+Let’s draw this visually and start with our base case of zero capacity:
+
+![image](https://user-images.githubusercontent.com/25869911/165224663-6a78ca86-6821-46b5-b102-afe4557069d4.png)
+
+![image](https://user-images.githubusercontent.com/25869911/165224743-bb3a463a-5448-43ee-857e-3ee2e587cc93.png)
+
+![image](https://user-images.githubusercontent.com/25869911/165224802-c9250e03-7bbe-40d0-b87d-faa1c8da5d28.png)
+
+![image](https://user-images.githubusercontent.com/25869911/165224857-0ec684a1-2923-4dab-b123-b344b1672bf4.png)
+
+![image](https://user-images.githubusercontent.com/25869911/165224957-3a451565-4710-4386-87a8-b0b761018978.png)
 

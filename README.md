@@ -2532,3 +2532,50 @@ Let’s draw this visually and start with our base case of zero capacity:
 
 ![image](https://user-images.githubusercontent.com/25869911/165224957-3a451565-4710-4386-87a8-b0b761018978.png)
 
+
+Time and Space complexity
+
+The above solution has the time and space complexity of O(N*C), where ‘N’ represents total items, and ‘C’ is the maximum capacity.
+
+How can we find the selected items?
+
+As we know, the final profit is at the bottom-right corner. Therefore, we will start from there to find the items that will be going into the knapsack.
+
+As you remember, at every step, we had two options: include an item or skip it. If we skip an item, we take the profit from the remaining items (i.e., from the cell right above it); if we include the item, then we jump to the remaining profit to find more items.
+
+Let’s understand this from the above example:
+
+![image](https://user-images.githubusercontent.com/25869911/165225166-9422d31a-3af8-4343-be4f-4ddef387937c.png)
+
+
+* ‘22’ did not come from the top cell (which is 17); hence we must include the item at index ‘3’ (which is item ‘D’).
+* Subtract the profit of item ‘D’ from ‘22’ to get the remaining profit ‘6’. We then jump to profit ‘6’ on the same row.
+* ‘6’ came from the top cell, so we jump to row ‘2’.
+* Again, ‘6’ came from the top cell, so we jump to row ‘1’.
+* ‘6’ is different from the top cell, so we must include this item (which is item ‘B’).
+* Subtract the profit of ‘B’ from ‘6’ to get profit ‘0’. We then jump to profit ‘0’ on the same row. As soon as we hit zero remaining profit, we can finish our item search.
+* Thus, the items going into the knapsack are {B, D}.
+
+Let’s write a function to print the set of items included in the knapsack.
+
+
+Challenge
+
+Can we improve our bottom-up DP solution even further? Can you find an algorithm that has O(C) space complexity?
+ 
+The solution above is similar to the previous solution; the only difference is that we use i%2 instead of i and (i-1)%2 instead of i-1. This solution has a space complexity of O(2*C) = O(C), where ‘C’ is the knapsack’s maximum capacity.
+
+This space optimization solution can also be implemented using a single array. It is a bit tricky, but the intuition is to use the same array for the previous and the next iteration!
+
+If you see closely, we need two values from the previous iteration: dp[c] and dp[c-weight[i]]
+
+Since our inner loop is iterating over c:0-->capacity, let’s see how this might affect our two required values:
+
+When we access dp[c], it has not been overridden yet for the current iteration, so it should be fine.
+dp[c-weight[i]] might be overridden if “weight[i] > 0”. Therefore we can’t use this value for the current iteration.
+To solve the second case, we can change our inner loop to process in the reverse direction: c:capacity-->0. This will ensure that whenever we change a value in dp[], we will not need it again in the current iteration.
+
+Can you try writing this algorithm?
+
+
+
